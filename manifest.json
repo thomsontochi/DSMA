@@ -1,0 +1,31 @@
+{
+    "manifest_version": 3,
+    "name": "Smart Research Assistant",
+    "version": "1.0",
+    "description": "AI-powered research assistant for students and academics",
+    "permissions": [
+      "activeTab",
+      "storage",
+      "scripting",
+      "contextMenus",
+      "translator"
+    ],
+    "host_permissions": [
+      "<all_urls>"
+    ],
+    "action": {
+      "default_popup": "popup.html"
+    },
+    "icons": {
+      "16": "images/icon16.png",
+      "48": "images/icon48.png",
+      "128": "images/icon128.png"
+    },
+    "background": {
+      "service_worker": "background.js"
+    },
+    "content_scripts": [{
+      "matches": ["<all_urls>"],
+      "js": ["content.js"]
+    }]
+  }

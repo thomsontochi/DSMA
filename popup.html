@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Hero icons for better UI elements -->
+    <link href="https://cdn.jsdelivr.net/npm/@heroicons/vue@2.0.18/dist/index.min.css" rel="stylesheet">
+    <style>
+        /* Any custom styles we might need */
+        .fade-enter-active,
+        .fade-leave-active {
+            transition: opacity 0.3s;
+        }
+
+        .fade-enter-from,
+        .fade-leave-to {
+            opacity: 0;
+        }
+    </style>
+   
+</head>
+
+<body class="bg-gray-50">
+    <div class="w-[500px] p-6">
+        <!-- Header -->
+        <div class="mb-6">
+            <h1
+                class="text-2xl font-bold text-gray-800 bg-gradient-to-r from-blue-600 to-purple-600 bg-clip-text text-transparent">
+                Smart Research Assistant
+            </h1>
+            <p class="text-sm text-gray-600">Transform complex research into digestible content</p>
+        </div>
+
+        <!-- Tabs -->
+        <div class="flex space-x-1 bg-gray-100 p-1 rounded-lg mb-6">
+            <button
+                class="tab-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none active"
+                data-tab="summarize">
+                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+                Summarize
+            </button>
+            <button
+                class="tab-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none"
+                data-tab="notes">
+                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M9 12h6m-6 4h6m2 5H7a2 2 0 01-2-2V5a2 2 0 012-2h5.586a1 1 0 01.707.293l5.414 5.414a1 1 0 01.293.707V19a2 2 0 01-2 2z" />
+                </svg>
+                Notes
+            </button>
+            <button
+                class="tab-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none"
+                data-tab="flashcards">
+                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M7 21h10a2 2 0 002-2V9.414a1 1 0 00-.293-.707l-5.414-5.414A1 1 0 0012.586 3H7a2 2 0 00-2 2v14a2 2 0 002 2z" />
+                </svg>
+                Flashcards
+            </button>
+            <button
+                class="tab-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none"
+                data-tab="simplify">
+                <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                        d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                </svg>
+                Simplify
+            </button>
+
+            <!-- Translate Section -->
+            <button
+            class="tab-btn flex-1 py-2 px-4 rounded-md text-sm font-medium transition-all duration-200 focus:outline-none"
+            data-tab="translate">
+            <svg class="w-4 h-4 inline-block mr-1" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                    d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+            </svg>
+            Translate
+            </button>
+        </div>
+
+        <!-- Content Sections -->
+        <div class="space-y-4">
+            <!-- Summarize Section -->
+            <div id="summarize" class="content active">
+                <div class="relative">
+                    <textarea
+                        class="w-full h-40 p-4 bg-white border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        placeholder="Paste research paper or article text here..."></textarea>
+                    <button onclick="summarizeText()"
+                        class="mt-2 w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
+                                d="M13 10V3L4 14h7v7l9-11h-7z" />
+                        </svg>
+                        <span>Generate Summary</span>
+                    </button>
+                </div>
+            </div>
+
+             
+            <div id="translate" class="content hidden">
+                <div class="relative space-y-4">
+                    <!-- Language Selection -->
+                    <select id="translateLang" 
+                        class="w-full p-3 bg-white border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent">
+                        <option value="" disabled selected>Select target language</option>
+                        <option value="es">Spanish (Español)</option>
+                        <option value="zh">Chinese (中文)</option>
+                        <option value="ja">Japanese (日本語)</option>
+                    </select>
+
+                    <!-- Text Input -->
+                    <textarea
+                        class="w-full h-40 p-4 bg-white border border-gray-200 rounded-lg shadow-sm focus:ring-2 focus:ring-blue-500 focus:border-transparent resize-none"
+                        placeholder="Enter text to translate..."></textarea>
+
+                    <!-- Translate Button -->
+                    <button id="translateBtn"
+                        class="w-full bg-gradient-to-r from-blue-600 to-purple-600 text-white py-3 px-4 rounded-lg hover:opacity-90 transition-opacity duration-200 flex items-center justify-center space-x-2">
+                        <svg class="w-5 h-5" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                            <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" 
+                                d="M3 5h12M9 3v2m1.048 9.5A18.022 18.022 0 016.412 9m6.088 9h7M11 21l5-10 5 10M12.751 5C11.783 10.77 8.07 15.61 3 18.129"/>
+                        </svg>
+                        <span>Translate</span>
+                    </button>
+                </div>
+            </div>
+
+            <!-- Result Section -->
+            <div id="result" class="bg-white p-4 rounded-lg border border-gray-200 shadow-sm hidden">
+                <div class="animate-pulse">
+                    <div class="h-4 bg-gray-200 rounded w-3/4"></div>
+                    <div class="space-y-3 mt-4">
+                        <div class="h-4 bg-gray-200 rounded"></div>
+                        <div class="h-4 bg-gray-200 rounded w-5/6"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="popup.js"></script>
+</body>
+
+</html>
